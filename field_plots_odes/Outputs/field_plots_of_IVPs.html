@@ -1,0 +1,534 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>field_plots_of_IVPs</title><meta name="generator" content="MATLAB 9.3"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2018-11-21"><meta name="DC.source" content="field_plots_of_IVPs.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">QUESTION 1</a></li><li><a href="#3">QUESTION 2</a></li><li><a href="#4">QUESTION 3</a></li><li><a href="#5">QUESTION 4</a></li></ul></div><pre class="codeinput"><span class="comment">% Random field plots</span>
+</pre><h2 id="2">QUESTION 1</h2><pre class="codeinput"><span class="comment">%(a)</span>
+syms <span class="string">t</span> <span class="string">c</span>
+sol1 = dsolve(<span class="string">'Dy + y/t = 2'</span>,<span class="string">'y(1) = c'</span>,<span class="string">'t'</span>)
+<span class="comment">%(b)</span>
+tvals = [0.01,0.1,1,10]
+yvals = subs(sol1,<span class="string">'t'</span>,tvals)
+cvals = [0.8, 1, 1.2]
+subs(yvals,<span class="string">'c'</span>,cvals)
+
+<span class="comment">%(c)</span>
+ <span class="keyword">for</span> j = 0.8:0.1:1.2
+    ezplot(subs(sol1,<span class="string">'c'</span>,j), [0,2.5])
+    hold <span class="string">on</span>
+ <span class="keyword">end</span>
+ axis <span class="string">tight</span>
+ xlabel <span class="string">t</span>, ylabel <span class="string">y</span>
+ title <span class="string">'Q3, with cvalues = 0.8,0.9...1.2'</span>
+<span class="comment">%(d)</span>
+<span class="comment">% Irrespective of what the c value is, as t tends to infinity, the function</span>
+<span class="comment">% goes to infinity as well. If t approaches zero from the right, then the</span>
+<span class="comment">% function value is dependent on the c value. So if c &lt; 1 function tends to</span>
+<span class="comment">% negative infinity and if c &gt; 1, the function tends to positive infinity.</span>
+<span class="comment">% If c = 1, then it is not defined.</span>
+</pre><pre class="codeoutput"> 
+sol1 =
+ 
+t + (c - 1)/t
+ 
+
+tvals =
+
+    0.0100    0.1000    1.0000   10.0000
+
+ 
+yvals =
+ 
+[ 100*c - 9999/100, 10*c - 99/10, c, c/10 + 99/10]
+ 
+
+cvals =
+
+    0.8000    1.0000    1.2000
+
+ 
+ans =
+ 
+[ -1999/100, 1/100, 2001/100, -19/10, 1/10, 21/10, 4/5, 1, 6/5, 499/50, 10, 501/50]
+ 
+</pre><img vspace="5" hspace="5" src="field_plots_of_IVPs_01.png" alt=""> <h2 id="3">QUESTION 2</h2><pre class="codeinput">syms <span class="string">y</span> <span class="string">t</span>
+<span class="comment">%(a)</span>
+eq = <span class="string">'Dy*(t*exp(y) - sin(y)) + exp(y) = 0'</span>
+sol1 = dsolve(eq,<span class="string">'t'</span>)
+f = -cos(y) - t*exp(y) <span class="comment">%written as c = f(t,y)</span>
+<span class="comment">%(b)</span>
+figure
+ezcontour(f, [-1,4,0,3])
+title <span class="string">'Solutions of dy/dt = (-exp(y)/(t*exp(y) - sin(y)))'</span>
+<span class="comment">%(c)</span>
+figure
+c = subs(f, [t,y],[2,1.5]);
+ezplot(f-c,[-1,4,0,3])
+title <span class="string">'Solutions of dy/dt with initial condition (2,1.5)'</span>
+axis([0,4,0,4])
+<span class="comment">%(d)</span>
+hold <span class="string">on</span>
+<span class="keyword">for</span> j = [1,1.5,3]
+    f1 = @(y) eval(subs(f,t,j)-c);
+    y1 = fzero(f1,2)
+    <span class="comment">% print values for t and y</span>
+    [j, double(y1)]
+    plot(j,double(y1),<span class="string">'o'</span>)
+<span class="keyword">end</span>
+hold <span class="string">off</span>
+title <span class="string">'Points of the solution curve of the IVP'</span>
+</pre><pre class="codeoutput">
+eq =
+
+    'Dy*(t*exp(y) - sin(y)) + exp(y) = 0'
+
+Warning: Unable to find explicit solution. Returning implicit
+solution instead. 
+ 
+sol1 =
+ 
+solve(cos(y) + t*exp(y) == -C17, y)
+ 
+ 
+f =
+ 
+- cos(y) - t*exp(y)
+ 
+
+y1 =
+
+    2.2698
+
+
+ans =
+
+    1.0000    2.2698
+
+
+y1 =
+
+    1.8228
+
+
+ans =
+
+    1.5000    1.8228
+
+
+y1 =
+
+    1.0453
+
+
+ans =
+
+    3.0000    1.0453
+
+</pre><img vspace="5" hspace="5" src="field_plots_of_IVPs_02.png" alt=""> <img vspace="5" hspace="5" src="field_plots_of_IVPs_03.png" alt=""> <h2 id="4">QUESTION 3</h2><pre class="language-matlab">(a)
+</pre><pre class="codeinput">figure
+[T, Y] = meshgrid(-2:0.2:2, -2:0.2:2);
+S = -T.* Y.^3;
+L = sqrt(1 + S.^2);
+quiver(T,Y,1./L ,S./L,0.5), axis <span class="string">equal</span> <span class="string">tight</span>
+xlabel <span class="string">'t'</span>, ylabel <span class="string">'y'</span>
+title <span class="string">'Direction Field for dy/dt = -ty^3'</span>; hold <span class="string">off</span>
+<span class="comment">% If t increases then t &lt; 0, y(0) &gt; 0; y(0) &lt; 0 approaches negative</span>
+<span class="comment">% infinity. When t = 0, the soultion is undefined. When t &gt; 0, y(0) &gt; 0 and</span>
+<span class="comment">% y(0) &lt; 0 both tend to zero when t increseases. There is a constant</span>
+<span class="comment">% solution when y = 0.</span>
+
+<span class="comment">%   (b)</span>
+<span class="comment">% Solving for the explicit solution of the differential equation, we get,</span>
+<span class="comment">% y = (1/t^2)^0.5 and y = -(1/t^2)^0.5. This is an odd function and the</span>
+<span class="comment">% solutions are symmetric about the t-axis.</span>
+
+<span class="comment">%   (c)</span>
+sol1 = dsolve(<span class="string">'Dy =-t*y^3'</span>,<span class="string">'y(0)=1/sqrt(c)'</span>,<span class="string">'t'</span>)
+sol1 = dsolve(<span class="string">'Dy =-t*y^3'</span>,<span class="string">'y(0)=-1/sqrt(c)'</span>,<span class="string">'t'</span>)
+<span class="comment">%   (d)</span>
+figure; hold <span class="string">on</span>;
+syms <span class="string">t</span> <span class="string">c</span>;
+sol = dsolve(<span class="string">'Dy = -t*(y^3)'</span>,<span class="string">'y(0) = 1/sqrt(c)'</span>,<span class="string">'t'</span>);
+<span class="keyword">for</span> cval = -5:1:5
+    fplot(subs(sol,<span class="string">'c'</span>,cval),[-3,3])
+<span class="keyword">end</span>
+hold <span class="string">off</span>
+<span class="comment">%f(c) tends to infinity as t tends to zero (there are asymptotes)</span>
+<span class="comment">%(e)</span>
+<span class="comment">% 5 different types of solution curves lying above the t-axis.(Seen in</span>
+<span class="comment">% figure 5 &amp; 6) In each case t is an element of R (-inf,inf).</span>
+<span class="comment">% For the first asymptote, interval of existence is (-inf,to itself) when</span>
+<span class="comment">% less than 0. The second is the curve that goes from zero to infinity.</span>
+<span class="comment">% Interval is (-inf,0). It tends to 0 at -inf and goes to inf at 0. The</span>
+<span class="comment">% third curve goes to infinity from the right at 0. Its interval is from</span>
+<span class="comment">% (0,inf). The curve is increasing towards zero. It tends to inf at 0 and</span>
+<span class="comment">% goes to inf at its asymptote. Fourth curve goes to inf from the right of</span>
+<span class="comment">% an asymptote at a value greater than 0. Its interval is (0,inf). The</span>
+<span class="comment">% curve is increasing as it approaches the asymptote from the right. The</span>
+<span class="comment">% fifth curve has no vertical asymptotes. Its interval is from (-inf,inf).</span>
+<span class="comment">% Solution goes to 0 at +/- inf. (Approaches 0 from left and right).</span>
+<span class="comment">%</span>
+
+<span class="comment">%(f)</span>
+figure; hold <span class="string">on</span>;
+syms <span class="string">t</span> <span class="string">c</span>;
+sol = dsolve(<span class="string">'Dy = -t*(y^3)'</span>,<span class="string">'y(0) = 1/sqrt(c)'</span>,<span class="string">'t'</span>);
+<span class="keyword">for</span> cval = -5:1:5
+    fplot(subs(sol,<span class="string">'c'</span>,cval),[-3,3])
+<span class="keyword">end</span>
+hold <span class="string">on</span>
+[T,Y] = meshgrid([-2:.2:3], [-2:.2:3]);
+S = -T.*(Y.^3);
+L = sqrt(1+S.^2);
+quiver(T,Y,1./L,S./L,0.5)
+axis([-2 2 -2 2])
+hold <span class="string">off</span>
+</pre><pre class="codeoutput"> 
+sol1 =
+ 
+  (2^(1/2)*(1/(t^2/2 + c/2))^(1/2))/2
+ -(2^(1/2)*(1/(t^2/2 + c/2))^(1/2))/2
+ 
+ 
+sol1 =
+ 
+  (2^(1/2)*(1/(t^2/2 + c/2))^(1/2))/2
+ -(2^(1/2)*(1/(t^2/2 + c/2))^(1/2))/2
+ 
+</pre><h2 id="5">QUESTION 4</h2><pre class="codeinput"><span class="comment">%(a)</span>
+syms <span class="string">y</span> <span class="string">a</span>
+disp(<span class="string">'roots of y -'</span>)
+sol = solve((a - 1)*y -y.^3)
+<span class="comment">% y = 0 is the only real root when a &lt;= 1. If this was the case, y^2 = -constant.</span>
+<span class="comment">% The roots would be imaginary.</span>
+<span class="comment">% There would be 3 distinct real roots only when a &gt; 1.</span>
+
+<span class="comment">%(b)</span>
+a=-1;
+[T,Y] = meshgrid([-1:.1:1], [-1:.1:1]);
+S = (a-1).*Y-Y.^3;
+L = sqrt(1+S.^2);
+figure
+quiver(T,Y,1./L,S./L)
+title(<span class="string">'a=-1'</span>);
+xlabel(<span class="string">'t'</span>);
+ylabel(<span class="string">'y'</span>);
+axis <span class="string">tight</span>
+<span class="comment">% Stable in all cases</span>
+a=0;
+[T,Y] = meshgrid([-1:.1:1], [-1:.1:1]);
+S = (a-1).*Y-Y.^3;
+L = sqrt(1+S.^2);
+figure
+quiver(T,Y,1./L,S./L)
+title(<span class="string">'a=0'</span>);
+xlabel(<span class="string">'t'</span>);
+ylabel(<span class="string">'y'</span>);
+axis <span class="string">tight</span>
+<span class="comment">% All of the graphs appear similar and all approach 0 making it stable in</span>
+<span class="comment">% all cases</span>
+
+<span class="comment">%(c)</span>
+a=1;
+[T,Y] = meshgrid([-1:.1:1], [-1:.1:1]);
+S = (a-1).*Y-Y.^3;
+L = sqrt(1+S.^2);
+figure
+quiver(T,Y,1./L,S./L)
+title(<span class="string">'a=1'</span>);
+xlabel(<span class="string">'t'</span>);
+ylabel(<span class="string">'y'</span>);
+axis <span class="string">tight</span>
+<span class="comment">% Stable in all cases</span>
+<span class="comment">%(d)</span>
+a=1.5;
+[T,Y] = meshgrid([-2:.2:2], [-2:.2:2]);
+S = (a-1).*Y-Y.^3;
+L = sqrt(1+S.^2);
+figure
+quiver(T,Y,1./L,S./L)
+title(<span class="string">'a=1.5'</span>);
+xlabel(<span class="string">'t'</span>);
+ylabel(<span class="string">'y'</span>);
+axis <span class="string">tight</span>
+<span class="comment">% The stationary points appear to be at -0.7 (stable), 0 (unstable), and</span>
+<span class="comment">% 0.7 (which is stable)</span>
+
+a=2;
+[T,Y] = meshgrid([-2:.2:2], [-2:.2:2]);
+S = (a-1).*Y-Y.^3;
+L = sqrt(1+S.^2);
+figure
+quiver(T,Y,1./L,S./L)
+title(<span class="string">'a=2'</span>);
+xlabel(<span class="string">'t'</span>);
+ylabel(<span class="string">'y'</span>);
+axis <span class="string">tight</span>
+<span class="comment">% The equilibrium points appear to be at -1 (stable), 0 (unstable), and</span>
+<span class="comment">% 1 (stable) We can see the direction fields diverge when unstable.</span>
+
+<span class="comment">%(e)</span>
+<span class="comment">% When 'a' tends to 1, the solutions after the stationary solution 0</span>
+<span class="comment">% bifurcates because the +-(a-1)^(0.5) becomes real and non imaginary. This</span>
+<span class="comment">% means that now the function can take one of the parts that have now</span>
+<span class="comment">% become real. This makes 3 stationary points and</span>
+<span class="comment">% this implies 0 unstable when the parts (fields) diverge</span>
+</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2017b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+% Random field plots
+%% QUESTION 1
+%(a)
+syms t c
+sol1 = dsolve('Dy + y/t = 2','y(1) = c','t')
+%(b)
+tvals = [0.01,0.1,1,10]
+yvals = subs(sol1,'t',tvals)
+cvals = [0.8, 1, 1.2]
+subs(yvals,'c',cvals)
+
+%(c)
+ for j = 0.8:0.1:1.2
+    ezplot(subs(sol1,'c',j), [0,2.5])
+    hold on
+ end
+ axis tight
+ xlabel t, ylabel y
+ title 'Q3, with cvalues = 0.8,0.9...1.2'
+%(d)
+% Irrespective of what the c value is, as t tends to infinity, the function
+% goes to infinity as well. If t approaches zero from the right, then the 
+% function value is dependent on the c value. So if c < 1 function tends to
+% negative infinity and if c > 1, the function tends to positive infinity.
+% If c = 1, then it is not defined.
+%% QUESTION 2
+syms y t
+%(a)
+eq = 'Dy*(t*exp(y) - sin(y)) + exp(y) = 0'
+sol1 = dsolve(eq,'t')
+f = -cos(y) - t*exp(y) %written as c = f(t,y)
+%(b)
+figure
+ezcontour(f, [-1,4,0,3])
+title 'Solutions of dy/dt = (-exp(y)/(t*exp(y) - sin(y)))'
+%(c)
+figure
+c = subs(f, [t,y],[2,1.5]);
+ezplot(f-c,[-1,4,0,3])
+title 'Solutions of dy/dt with initial condition (2,1.5)'
+axis([0,4,0,4])
+%(d)
+hold on
+for j = [1,1.5,3]
+    f1 = @(y) eval(subs(f,t,j)-c);
+    y1 = fzero(f1,2)
+    % print values for t and y
+    [j, double(y1)]
+    plot(j,double(y1),'o')
+end
+hold off
+title 'Points of the solution curve of the IVP'
+%% QUESTION 3
+%   (a)
+figure
+[T, Y] = meshgrid(-2:0.2:2, -2:0.2:2);
+S = -T.* Y.^3;
+L = sqrt(1 + S.^2);
+quiver(T,Y,1./L ,S./L,0.5), axis equal tight
+xlabel 't', ylabel 'y'
+title 'Direction Field for dy/dt = -ty^3'; hold off
+% If t increases then t < 0, y(0) > 0; y(0) < 0 approaches negative
+% infinity. When t = 0, the soultion is undefined. When t > 0, y(0) > 0 and
+% y(0) < 0 both tend to zero when t increseases. There is a constant
+% solution when y = 0.
+
+%   (b)
+% Solving for the explicit solution of the differential equation, we get,
+% y = (1/t^2)^0.5 and y = -(1/t^2)^0.5. This is an odd function and the
+% solutions are symmetric about the t-axis.
+
+%   (c)
+sol1 = dsolve('Dy =-t*y^3','y(0)=1/sqrt(c)','t')
+sol1 = dsolve('Dy =-t*y^3','y(0)=-1/sqrt(c)','t')
+%   (d)
+figure; hold on;
+syms t c;
+sol = dsolve('Dy = -t*(y^3)','y(0) = 1/sqrt(c)','t');
+for cval = -5:1:5
+    fplot(subs(sol,'c',cval),[-3,3])
+end
+hold off
+%f(c) tends to infinity as t tends to zero (there are asymptotes)
+%(e)
+% 5 different types of solution curves lying above the t-axis.(Seen in 
+% figure 5 & 6) In each case t is an element of R (-inf,inf).
+% For the first asymptote, interval of existence is (-inf,to itself) when
+% less than 0. The second is the curve that goes from zero to infinity.
+% Interval is (-inf,0). It tends to 0 at -inf and goes to inf at 0. The
+% third curve goes to infinity from the right at 0. Its interval is from
+% (0,inf). The curve is increasing towards zero. It tends to inf at 0 and
+% goes to inf at its asymptote. Fourth curve goes to inf from the right of
+% an asymptote at a value greater than 0. Its interval is (0,inf). The
+% curve is increasing as it approaches the asymptote from the right. The
+% fifth curve has no vertical asymptotes. Its interval is from (-inf,inf).
+% Solution goes to 0 at +/- inf. (Approaches 0 from left and right).
+%
+
+%(f)
+figure; hold on;
+syms t c;
+sol = dsolve('Dy = -t*(y^3)','y(0) = 1/sqrt(c)','t');
+for cval = -5:1:5
+    fplot(subs(sol,'c',cval),[-3,3])
+end
+hold on
+[T,Y] = meshgrid([-2:.2:3], [-2:.2:3]);
+S = -T.*(Y.^3);
+L = sqrt(1+S.^2);
+quiver(T,Y,1./L,S./L,0.5)
+axis([-2 2 -2 2])
+hold off
+%% QUESTION 4
+%(a)
+syms y a
+disp('roots of y -')
+sol = solve((a - 1)*y -y.^3)
+% y = 0 is the only real root when a <= 1. If this was the case, y^2 = -constant.
+% The roots would be imaginary. 
+% There would be 3 distinct real roots only when a > 1.
+
+%(b)
+a=-1;
+[T,Y] = meshgrid([-1:.1:1], [-1:.1:1]);
+S = (a-1).*Y-Y.^3;
+L = sqrt(1+S.^2);
+figure
+quiver(T,Y,1./L,S./L)
+title('a=-1');
+xlabel('t');
+ylabel('y');
+axis tight
+% Stable in all cases
+a=0;
+[T,Y] = meshgrid([-1:.1:1], [-1:.1:1]);
+S = (a-1).*Y-Y.^3;
+L = sqrt(1+S.^2);
+figure
+quiver(T,Y,1./L,S./L)
+title('a=0');
+xlabel('t');
+ylabel('y');
+axis tight
+% All of the graphs appear similar and all approach 0 making it stable in
+% all cases
+
+%(c)
+a=1;
+[T,Y] = meshgrid([-1:.1:1], [-1:.1:1]);
+S = (a-1).*Y-Y.^3;
+L = sqrt(1+S.^2);
+figure
+quiver(T,Y,1./L,S./L)
+title('a=1');
+xlabel('t');
+ylabel('y');
+axis tight
+% Stable in all cases
+%(d)
+a=1.5;
+[T,Y] = meshgrid([-2:.2:2], [-2:.2:2]);
+S = (a-1).*Y-Y.^3;
+L = sqrt(1+S.^2);
+figure
+quiver(T,Y,1./L,S./L)
+title('a=1.5');
+xlabel('t');
+ylabel('y');
+axis tight
+% The stationary points appear to be at -0.7 (stable), 0 (unstable), and
+% 0.7 (which is stable)
+
+a=2;
+[T,Y] = meshgrid([-2:.2:2], [-2:.2:2]);
+S = (a-1).*Y-Y.^3;
+L = sqrt(1+S.^2);
+figure
+quiver(T,Y,1./L,S./L)
+title('a=2');
+xlabel('t');
+ylabel('y');
+axis tight
+% The equilibrium points appear to be at -1 (stable), 0 (unstable), and
+% 1 (stable) We can see the direction fields diverge when unstable.
+
+%(e)
+% When 'a' tends to 1, the solutions after the stationary solution 0
+% bifurcates because the +-(a-1)^(0.5) becomes real and non imaginary. This
+% means that now the function can take one of the parts that have now 
+% become real. This makes 3 stationary points and 
+% this implies 0 unstable when the parts (fields) diverge
+##### SOURCE END #####
+--></body></html>
